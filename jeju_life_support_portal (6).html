@@ -2287,6 +2287,434 @@
             cursor: pointer;
         }
         .med-close-btn:active { transform: scale(0.98); }
+
+        /* ===================================================================
+           온보딩 (학번 / 이름)
+        =================================================================== */
+        #onboarding-view {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            height: 100dvh;
+            z-index: 8000;
+            background: linear-gradient(165deg, #eaf6ff 0%, #dbeeff 45%, #ffe9d6 100%);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 26px 22px;
+            overflow-y: auto;
+        }
+        #onboarding-view.show { display: flex; }
+        .onb-card {
+            width: 100%;
+            background: #fff;
+            border-radius: 28px;
+            padding: 26px 20px 22px;
+            box-shadow: 0 20px 44px rgba(7, 55, 99, 0.14);
+            text-align: center;
+        }
+        .onb-avatar {
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 18px rgba(7, 55, 99, 0.16);
+        }
+        .onb-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .onb-title {
+            font-family: 'Gaegu', 'Noto Sans KR', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+        .onb-sub { font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 20px; line-height: 1.55; }
+        .onb-field { text-align: left; margin-bottom: 14px; }
+        .onb-label { font-size: 0.76rem; font-weight: bold; color: var(--ink-soft); margin-bottom: 6px; display: block; }
+        .onb-input {
+            width: 100%;
+            padding: 13px 14px;
+            border-radius: 14px;
+            border: 2px solid var(--line);
+            background: #fdfcfa;
+            font-size: 0.95rem;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .onb-input:focus { border-color: var(--ocean-1); background: #fff; }
+        .onb-error { font-size: 0.74rem; color: var(--sos-red); margin-top: 6px; min-height: 16px; }
+        .onb-start-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(155deg, var(--ocean-1), var(--ocean-2));
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.98rem;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #01639b, 0 8px 16px rgba(2,119,189,0.26);
+            transition: transform 0.12s ease, box-shadow 0.2s ease;
+        }
+        .onb-start-btn:active { transform: translateY(3px); box-shadow: none; }
+        .onb-note { font-size: 0.7rem; color: #93a3b3; margin-top: 14px; line-height: 1.5; }
+
+        /* 헤더 사용자 정보 */
+        .header-user { margin-left: auto; text-align: right; flex-shrink: 0; }
+        .header-hello { font-size: 0.74rem; color: var(--ink-soft); font-weight: 700; }
+        .header-streak {
+            display: inline-block;
+            margin-top: 3px;
+            background: linear-gradient(135deg, #ffd977, #ffb340);
+            color: #6b4200;
+            font-size: 0.64rem;
+            font-weight: bold;
+            padding: 3px 9px;
+            border-radius: 999px;
+        }
+
+        /* ===================================================================
+           오늘의 미션
+        =================================================================== */
+        .card-mission { background: linear-gradient(155deg, #fffdf8, #fff4e3); border: 1px solid #ffe4c4; }
+        .mission-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .mission-head h3 { color: #b35314; font-size: 1.05rem; font-weight: 700; }
+        .mission-count { font-size: 0.76rem; font-weight: bold; color: #b8860b; }
+        .mission-date { font-size: 0.74rem; color: #a2977f; margin-bottom: 14px; }
+
+        .daily-row {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            background: #fff;
+            border: 1.5px solid #f3e9d8;
+            border-radius: 18px;
+            padding: 12px 13px;
+            margin-bottom: 9px;
+            text-align: left;
+        }
+        .daily-row.done { background: linear-gradient(160deg, #f4fbf7, #e6f6ec); border-color: #cbe9d8; }
+        .daily-ico {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            background: #fff7ec;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+        }
+        .daily-row.done .daily-ico { background: #d9f0e3; }
+        .daily-body { flex: 1; min-width: 0; }
+        .daily-title { font-size: 0.86rem; font-weight: bold; color: #5a4632; }
+        .daily-row.done .daily-title { color: #2f7a57; }
+        .daily-sub { font-size: 0.7rem; color: #a2977f; margin-top: 2px; line-height: 1.4; }
+        .daily-row.done .daily-sub { color: #4b9370; }
+        .daily-bar-bg {
+            background: #f0eae0;
+            border-radius: 999px;
+            height: 6px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+        .daily-bar-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #ffd977, var(--tangerine));
+            transition: width 0.4s ease;
+        }
+        .daily-row.done .daily-bar-fill { background: linear-gradient(90deg, #9ddcb4, var(--calm-green)); }
+        .daily-btn {
+            flex-shrink: 0;
+            padding: 10px 14px;
+            border-radius: 13px;
+            border: none;
+            font-weight: bold;
+            font-size: 0.74rem;
+            cursor: pointer;
+            background: linear-gradient(160deg, #ffc98d, var(--tangerine));
+            color: #6b2e00;
+            box-shadow: 0 3px 0 #d95f19;
+            transition: transform 0.12s ease, box-shadow 0.2s ease;
+        }
+        .daily-btn:active { transform: translateY(2px); box-shadow: none; }
+        .daily-btn.done {
+            background: #dfeee6;
+            color: #2f7a57;
+            box-shadow: none;
+        }
+        .mission-reward-note { font-size: 0.72rem; color: #a2977f; margin-top: 10px; line-height: 1.5; }
+
+        /* 걷기 트래커 오버레이 */
+        .walk-tracker-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(165deg, #dff1e4, #c7e8d3);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+        .walk-count {
+            font-family: 'Gaegu', 'Noto Sans KR', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #2f7a57;
+            line-height: 1;
+        }
+        .walk-count-unit { font-size: 1rem; color: #4b9370; font-weight: bold; margin-bottom: 6px; }
+        .walk-goal-text { font-size: 0.85rem; color: #4b9370; margin-bottom: 20px; font-weight: bold; }
+        .walk-ring {
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            border: 12px solid rgba(255,255,255,0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            background: rgba(255,255,255,0.45);
+            box-shadow: 0 12px 28px rgba(47, 122, 87, 0.18);
+        }
+        .walk-hint-text { font-size: 0.78rem; color: #4b9370; margin-bottom: 22px; line-height: 1.6; max-width: 300px; }
+        .walk-stop-btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 14px;
+            border-radius: 16px;
+            border: none;
+            background: #fff;
+            color: #2f7a57;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(47,122,87,0.18);
+        }
+        .walk-stop-btn:active { transform: scale(0.98); }
+
+        /* 통화 안내 모달 */
+        .call-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(58, 44, 30, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 950;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+        }
+        .call-modal.show { display: flex; }
+        .call-panel {
+            width: 100%;
+            max-width: 340px;
+            background: #fff;
+            border-radius: 26px;
+            padding: 24px 20px 20px;
+            text-align: center;
+        }
+        .call-panel h3 { font-size: 1.05rem; color: var(--ink); margin-bottom: 6px; }
+        .call-panel p { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 16px; }
+        .call-timer {
+            font-family: 'Gaegu', 'Noto Sans KR', sans-serif;
+            font-size: 2.6rem;
+            color: var(--ocean-2);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        /* ===================================================================
+           제록이 대화
+        =================================================================== */
+        #chat-view {
+            background: linear-gradient(165deg, #eaf6ff 0%, #e2f0ff 60%, #f5ecff 100%);
+            padding: 0;
+            height: 100vh;
+            height: 100dvh;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.86);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(7,55,99,0.07);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            flex-shrink: 0;
+        }
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(7,55,99,0.14);
+        }
+        .chat-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .chat-title { font-weight: 900; font-size: 0.95rem; color: var(--ink); }
+        .chat-status { font-size: 0.68rem; color: var(--calm-green); font-weight: bold; }
+        .chat-log {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 14px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .chat-msg { display: flex; gap: 8px; max-width: 84%; }
+        .chat-msg.bot { align-self: flex-start; }
+        .chat-msg.me { align-self: flex-end; flex-direction: row-reverse; }
+        .chat-bubble {
+            padding: 11px 14px;
+            border-radius: 18px;
+            font-size: 0.88rem;
+            line-height: 1.55;
+            white-space: pre-line;
+            word-break: break-word;
+        }
+        .chat-msg.bot .chat-bubble {
+            background: #fff;
+            color: var(--ink);
+            border-bottom-left-radius: 6px;
+            box-shadow: 0 3px 10px rgba(7,55,99,0.08);
+        }
+        .chat-msg.me .chat-bubble {
+            background: linear-gradient(155deg, var(--ocean-1), var(--ocean-2));
+            color: #fff;
+            border-bottom-right-radius: 6px;
+            box-shadow: 0 3px 10px rgba(2,119,189,0.22);
+        }
+        .chat-mini-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            align-self: flex-end;
+        }
+        .chat-mini-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .chat-typing { display: flex; gap: 4px; padding: 14px 16px; }
+        .chat-typing span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #b9c6d2;
+            animation: typingBounce 1.2s ease-in-out infinite;
+        }
+        .chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+            30% { transform: translateY(-5px); opacity: 1; }
+        }
+        .chat-crisis-card {
+            align-self: stretch;
+            background: linear-gradient(155deg, #fff6f5, var(--sos-red-soft));
+            border: 1.5px solid #f8c9c4;
+            border-radius: 18px;
+            padding: 14px 15px;
+        }
+        .chat-crisis-card h4 { font-size: 0.88rem; color: #b23225; margin-bottom: 6px; }
+        .chat-crisis-card p { font-size: 0.78rem; color: #8a4034; line-height: 1.6; margin-bottom: 10px; }
+        .chat-crisis-card a {
+            display: block;
+            padding: 11px;
+            border-radius: 12px;
+            background: var(--sos-red);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 7px;
+        }
+        .chat-crisis-card a.secondary { background: #fff; color: #b23225; border: 1.5px solid #f3bcb6; }
+        .chat-quick-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 6px 14px 10px;
+            flex-shrink: 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .chat-quick-row::-webkit-scrollbar { display: none; }
+        .chat-quick-btn {
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.9);
+            border: 1.5px solid rgba(7,55,99,0.09);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.76rem;
+            font-weight: bold;
+            color: var(--ocean-2);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .chat-quick-btn:active { transform: scale(0.95); }
+        .chat-input-bar {
+            display: flex;
+            gap: 8px;
+            padding: 10px 14px calc(12px + env(safe-area-inset-bottom));
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(7,55,99,0.07);
+            flex-shrink: 0;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 999px;
+            border: 1.5px solid var(--line);
+            background: #fdfcfa;
+            font-size: 0.9rem;
+            outline: none;
+            min-width: 0;
+        }
+        .chat-input:focus { border-color: var(--ocean-1); background: #fff; }
+        .chat-send-btn {
+            flex-shrink: 0;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(155deg, var(--ocean-1), var(--ocean-2));
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(2,119,189,0.28);
+        }
+        .chat-send-btn:active { transform: scale(0.92); }
+        .card-chat { background: linear-gradient(155deg, #f0f8ff, #e3f1ff); border: 1px solid #cfe6f8; margin-top: 16px; }
+        .card-chat h3 { color: #1e5a96; margin-bottom: 8px; font-size: 1.05rem; font-weight: 700; }
+        .card-chat p { font-size: 0.85rem; margin-bottom: 14px; line-height: 1.55; color: #37637f; }
+        .btn-chat { background: linear-gradient(155deg, #5ab0ea, #1e5a96); color: white; box-shadow: 0 8px 16px rgba(30,90,150,0.28); }
     </style>
 </head>
 <body>
@@ -2298,12 +2726,37 @@
         <div class="splash-tap-hint">화면을 탭하여 시작하기</div>
     </div>
 
+    <div id="onboarding-view">
+        <div class="onb-card">
+            <div class="onb-avatar" id="onb-avatar"></div>
+            <div class="onb-title">만나서 반가워요!</div>
+            <div class="onb-sub">저는 제록이예요.<br>어떻게 불러드리면 좋을까요?</div>
+
+            <div class="onb-field">
+                <label class="onb-label" for="onb-student-id">학번</label>
+                <input class="onb-input" id="onb-student-id" type="text" inputmode="numeric" placeholder="예) 202512345" maxlength="12" autocomplete="off">
+            </div>
+            <div class="onb-field">
+                <label class="onb-label" for="onb-name">이름</label>
+                <input class="onb-input" id="onb-name" type="text" placeholder="예) 홍길동" maxlength="20" autocomplete="off">
+            </div>
+            <div class="onb-error" id="onb-error"></div>
+
+            <button class="onb-start-btn" onclick="submitOnboarding()">시작하기</button>
+            <div class="onb-note">🔒 입력한 정보는 서버로 보내지 않고 이 기기에만 저장돼요. 출석과 미션 기록을 이어가기 위해서만 사용됩니다.</div>
+        </div>
+    </div>
+
     <div id="main-view" class="view">
         <header>
             <div class="logo-badge"><img src="data:image/jpeg;base64,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" alt="제록이"></div>
             <div class="logo-title">
                 제주대학교
                 <span>제록이의 마음쉼터</span>
+            </div>
+            <div class="header-user" id="header-user" style="display:none;">
+                <div class="header-hello" id="header-hello"></div>
+                <span class="header-streak" id="header-streak"></span>
             </div>
         </header>
 
@@ -2347,11 +2800,21 @@
                 <div class="signal-tip">💚 혼자라고 생각하지 마세요. 오늘 하루도 잘 견뎌낸 당신을 응원합니다.</div>
             </div>
 
-            <div class="card card-med">
-                <h3>💊 약 챙겨 먹기 인증</h3>
-                <p>멀리 떨어져 있으면 가족이 매일 약 챙기는 걸 옆에서 봐줄 수 없죠. 사진으로 가볍게 기록하고, 원할 때만 가족에게 보내보세요.</p>
-                <button onclick="showMedication()" class="btn btn-med">📸 오늘 약 인증하기</button>
-                <div class="signal-tip">🔒 사진은 이 기기에만 저장돼요. '보내기'를 누를 때만 전달됩니다.</div>
+            <div class="card card-mission" style="margin-top:16px;">
+                <div class="mission-head">
+                    <h3>✅ 오늘의 미션</h3>
+                    <span class="mission-count" id="mission-count">0 / 3</span>
+                </div>
+                <div class="mission-date" id="mission-date"></div>
+                <div id="daily-list"></div>
+                <div class="mission-reward-note" id="mission-reward-note">미션을 하나 깰 때마다 병아리 키우기에서 쓸 코인을 드려요 🪙</div>
+            </div>
+
+            <div class="card card-chat">
+                <h3>🦌 제록이와 이야기하기</h3>
+                <p>혼자 담아두기 버거운 마음이 있다면, 제록이한테 편하게 털어놓아 보세요. 판단하지 않고 들어드릴게요.</p>
+                <button onclick="showChat()" class="btn btn-chat">💬 제록이랑 대화하기</button>
+                <div class="signal-tip">💡 제록이는 상담 선생님이 아니라 이야기 친구예요. 힘든 순간에는 언제든 109로 연결해드릴게요.</div>
             </div>
         </div>
 
@@ -2446,6 +2909,37 @@
 
         <input type="file" id="med-file-input" accept="image/*" capture="environment" style="display:none;">
         <canvas id="med-canvas" style="display:none;"></canvas>
+    </div>
+
+    <div id="chat-view" class="view" style="display: none;">
+        <div class="chat-header">
+            <button class="btn-back-mini" onclick="closeChat()">‹</button>
+            <div class="chat-avatar" id="chat-avatar"></div>
+            <div>
+                <div class="chat-title">제록이</div>
+                <div class="chat-status">● 듣고 있어요</div>
+            </div>
+        </div>
+        <div class="chat-log" id="chat-log"></div>
+        <div class="chat-quick-row" id="chat-quick-row"></div>
+        <div class="chat-input-bar">
+            <input class="chat-input" id="chat-input" type="text" placeholder="지금 마음을 적어보세요" autocomplete="off" maxlength="300">
+            <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="보내기">↑</button>
+        </div>
+    </div>
+
+    <div id="walk-tracker-view" class="walk-tracker-overlay" style="display:none;">
+        <div class="walk-ring">
+            <div class="walk-count" id="walk-count">0</div>
+            <div class="walk-count-unit">걸음</div>
+        </div>
+        <div class="walk-goal-text" id="walk-goal-text">목표 2,000걸음</div>
+        <div class="walk-hint-text" id="walk-hint-text">휴대폰을 들고 걸어보세요.<br>화면이 켜져 있는 동안 걸음을 세요.</div>
+        <button class="walk-stop-btn" onclick="stopWalkTracking()">걷기 마치기</button>
+    </div>
+
+    <div id="call-modal" class="call-modal">
+        <div class="call-panel" id="call-panel"></div>
     </div>
 
     <div id="game-view" class="view stage-0" style="display: none;">
@@ -5342,6 +5836,7 @@
         await saveMedState();
         renderMedication();
         showMedResult(dataUrl);
+        try { await syncMedMission(); } catch (e) {}
     }
 
     function showMedResult(dataUrl) {
@@ -5385,6 +5880,809 @@
     }
 
     loadMedState();
+
+    // ===================================================================
+    // 사용자 / 출석 / 오늘의 미션
+    // ===================================================================
+    const USER_KEY = "jeroki-user";
+    const DAILY_KEY = "jeroki-daily";
+    const CALL_PENDING_KEY = "jeroki-call-pending";
+
+    let userProfile = null;              // { studentId, name, joinedAt }
+    let attendance = {};                 // { "2026-08-10": true }
+    let dailyData = {};                  // 날짜별 미션 진행 상황
+    let dailySettings = { callGoalMin: 5, walkGoal: 2000, callName: "", callPhone: "" };
+
+    function todayKey() { return medTodayKey(); }
+
+    function blankDay() {
+        return {
+            med:  { done: false, time: "" },
+            call: { done: false, minutes: 0 },
+            walk: { done: false, steps: 0 }
+        };
+    }
+
+    function todayData() {
+        const key = todayKey();
+        if (!dailyData[key]) dailyData[key] = blankDay();
+        return dailyData[key];
+    }
+
+    async function loadUserState() {
+        try {
+            const u = await window.storage.get(USER_KEY);
+            if (u && u.value) userProfile = JSON.parse(u.value);
+        } catch (e) {}
+        try {
+            const d = await window.storage.get(DAILY_KEY);
+            if (d && d.value) {
+                const parsed = JSON.parse(d.value);
+                attendance = parsed.attendance || {};
+                dailyData = parsed.dailyData || {};
+                dailySettings = Object.assign(dailySettings, parsed.dailySettings || {});
+            }
+        } catch (e) {}
+    }
+
+    async function saveUserState() {
+        try { await window.storage.set(USER_KEY, JSON.stringify(userProfile)); } catch (e) {}
+        try {
+            await window.storage.set(DAILY_KEY, JSON.stringify({ attendance, dailyData, dailySettings }));
+        } catch (e) {}
+    }
+
+    function attendanceStreak() {
+        let streak = 0;
+        let cursor = attendance[todayKey()] ? 0 : -1;
+        while (attendance[medDateKeyOffset(cursor)]) { streak++; cursor--; }
+        return streak;
+    }
+
+    // ----- 온보딩 -----
+    function needsOnboarding() {
+        return !userProfile || !userProfile.studentId || !userProfile.name;
+    }
+
+    function showOnboarding() {
+        const avatar = document.getElementById('onb-avatar');
+        const logoImg = document.querySelector('.logo-badge img');
+        if (avatar && logoImg && !avatar.querySelector('img')) {
+            const clone = document.createElement('img');
+            clone.src = logoImg.src;
+            clone.alt = "제록이";
+            avatar.appendChild(clone);
+        }
+        document.getElementById('onboarding-view').classList.add('show');
+    }
+
+    async function submitOnboarding() {
+        const idEl = document.getElementById('onb-student-id');
+        const nameEl = document.getElementById('onb-name');
+        const errEl = document.getElementById('onb-error');
+        const studentId = idEl.value.trim();
+        const name = nameEl.value.trim();
+
+        if (!studentId) { errEl.innerText = "학번을 입력해주세요."; idEl.focus(); return; }
+        if (!/^\d{4,12}$/.test(studentId)) { errEl.innerText = "학번은 숫자로만 입력해주세요."; idEl.focus(); return; }
+        if (!name) { errEl.innerText = "이름을 입력해주세요."; nameEl.focus(); return; }
+        errEl.innerText = "";
+
+        userProfile = { studentId, name, joinedAt: new Date().toISOString() };
+        await saveUserState();
+        document.getElementById('onboarding-view').classList.remove('show');
+        startDailySession();
+    }
+
+    // ----- 출석 -----
+    async function startDailySession() {
+        const key = todayKey();
+        const firstToday = !attendance[key];
+        attendance[key] = true;
+        todayData();
+        await saveUserState();
+        renderHeaderUser();
+        renderDailyMissions();
+        if (firstToday) {
+            const streak = attendanceStreak();
+            showEventToast(
+                streak > 1
+                    ? "🎉 " + streak + "일 연속 출석! 오늘도 와줘서 고마워요"
+                    : "🌱 오늘도 만나서 반가워요, " + userProfile.name + "님",
+                "good"
+            );
+        }
+    }
+
+    function renderHeaderUser() {
+        if (!userProfile) return;
+        const box = document.getElementById('header-user');
+        document.getElementById('header-hello').innerText = userProfile.name + "님";
+        const streak = attendanceStreak();
+        const badge = document.getElementById('header-streak');
+        badge.innerText = streak > 0 ? "출석 " + streak + "일" : "출석 시작";
+        box.style.display = 'block';
+    }
+
+    // ----- 오늘의 미션 렌더링 -----
+    const MISSION_COIN_REWARD = 10;
+
+    function renderDailyMissions() {
+        const list = document.getElementById('daily-list');
+        if (!list) return;
+        const d = todayData();
+
+        const now = new Date();
+        const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+        document.getElementById('mission-date').innerText =
+            (now.getMonth() + 1) + "월 " + now.getDate() + "일 (" + weekdays[now.getDay()] + ")";
+
+        const callGoal = dailySettings.callGoalMin;
+        const walkGoal = dailySettings.walkGoal;
+        const callMin = Math.floor(d.call.minutes);
+        const rows = [
+            {
+                key: "med", icon: "💊", title: "약 챙겨 먹기",
+                done: d.med.done,
+                sub: d.med.done ? (d.med.time + "에 사진으로 인증했어요") : "사진으로 오늘 약을 인증해요",
+                pct: d.med.done ? 100 : 0,
+                btn: d.med.done ? "기록 보기" : "인증",
+                action: "showMedication()"
+            },
+            {
+                key: "call", icon: "📞", title: callGoal + "분 이상 통화하기",
+                done: d.call.done,
+                sub: d.call.done
+                    ? ("오늘 " + callMin + "분 통화했어요")
+                    : (d.call.minutes > 0
+                        ? (callMin + "분 통화 · " + Math.max(1, callGoal - callMin) + "분만 더!")
+                        : (dailySettings.callName ? (dailySettings.callName + "님과 목소리 나누기") : "전화할 사람을 등록해보세요")),
+                pct: Math.min(100, (d.call.minutes / callGoal) * 100),
+                btn: d.call.done ? "완료" : "전화",
+                action: "openCallMission()"
+            },
+            {
+                key: "walk", icon: "🚶", title: walkGoal.toLocaleString() + "걸음 걷기",
+                done: d.walk.done,
+                sub: d.walk.done
+                    ? ("오늘 " + d.walk.steps.toLocaleString() + "걸음 걸었어요")
+                    : (d.walk.steps > 0
+                        ? (d.walk.steps.toLocaleString() + "걸음 · " + (walkGoal - d.walk.steps).toLocaleString() + "걸음 남았어요")
+                        : "바깥 공기를 쐬고 와요"),
+                pct: Math.min(100, (d.walk.steps / walkGoal) * 100),
+                btn: d.walk.done ? "완료" : "걷기",
+                action: "startWalkMission()"
+            }
+        ];
+
+        let html = "";
+        rows.forEach(r => {
+            html += '<div class="daily-row' + (r.done ? " done" : "") + '">';
+            html += '<span class="daily-ico">' + (r.done ? "✅" : r.icon) + '</span>';
+            html += '<div class="daily-body">';
+            html += '<div class="daily-title">' + r.title + '</div>';
+            html += '<div class="daily-sub">' + r.sub + '</div>';
+            if (!r.done && r.pct > 0) {
+                html += '<div class="daily-bar-bg"><div class="daily-bar-fill" style="width:' + r.pct + '%"></div></div>';
+            }
+            html += '</div>';
+            html += '<button class="daily-btn' + (r.done ? " done" : "") + '" onclick="' + r.action + '">' + r.btn + '</button>';
+            html += '</div>';
+        });
+        list.innerHTML = html;
+
+        const doneCount = rows.filter(r => r.done).length;
+        document.getElementById('mission-count').innerText = doneCount + " / 3";
+        const note = document.getElementById('mission-reward-note');
+        note.innerText = doneCount === 3
+            ? "🎊 오늘 미션을 모두 해냈어요! 정말 잘하고 있어요."
+            : "미션을 하나 깰 때마다 병아리 키우기에서 쓸 코인을 드려요 🪙";
+    }
+
+    // 미션 완료 처리 (중복 보상 방지)
+    async function completeMission(key, label) {
+        const d = todayData();
+        if (d[key].done) return;
+        d[key].done = true;
+        await saveUserState();
+        try {
+            coins += MISSION_COIN_REWARD;
+            updateResourceBar();
+            saveGame();
+        } catch (e) {}
+        renderDailyMissions();
+        showEventToast("🎉 " + label + " 미션 완료! 🪙+" + MISSION_COIN_REWARD, "good");
+        spawnConfetti();
+    }
+
+    // 약 인증이 끝나면 미션에도 반영
+    async function syncMedMission() {
+        const entry = medLog[todayKey()];
+        if (!entry) return;
+        const d = todayData();
+        d.med.time = entry.time;
+        if (!d.med.done) {
+            await completeMission('med', "약 챙겨 먹기");
+        } else {
+            await saveUserState();
+            renderDailyMissions();
+        }
+    }
+
+    // ===================================================================
+    // 전화 미션
+    // 웹페이지는 실제 통화 시간을 읽을 수 없어서, 전화 앱으로 나갔다가
+    // 돌아오기까지 걸린 시간을 대신 재는 방식입니다.
+    // ===================================================================
+    function openCallMission() {
+        const d = todayData();
+        if (d.call.done) {
+            showCallPanel(
+                '<h3>오늘 통화 미션 완료 🎉</h3>' +
+                '<p>오늘 ' + Math.floor(d.call.minutes) + '분 통화했어요.<br>목소리를 나누는 건 생각보다 큰 힘이 돼요.</p>' +
+                '<button class="btn btn-yellow" onclick="closeCallPanel()">닫기</button>'
+            );
+            return;
+        }
+        if (!dailySettings.callPhone) { openCallSetup(); return; }
+
+        const remain = Math.max(0, dailySettings.callGoalMin - d.call.minutes);
+        showCallPanel(
+            '<h3>📞 ' + dailySettings.callName + '님께 전화하기</h3>' +
+            '<p>' + (d.call.minutes > 0
+                ? ('지금까지 ' + Math.floor(d.call.minutes) + '분 통화했어요.<br>' + Math.ceil(remain) + '분만 더 이야기하면 미션 완료!')
+                : ('전화를 걸고 ' + dailySettings.callGoalMin + '분 넘게 이야기하면 미션이 완료돼요.<br>통화가 끝나고 이 화면으로 돌아와주세요.')) + '</p>' +
+            '<button class="btn btn-green" onclick="placeCall()">📞 지금 전화 걸기</button>' +
+            '<button class="btn btn-yellow" onclick="openCallSetup()">연락처 바꾸기</button>' +
+            '<button class="btn btn-yellow" onclick="closeCallPanel()">나중에</button>'
+        );
+    }
+
+    function openCallSetup() {
+        showCallPanel(
+            '<h3>누구와 통화할까요?</h3>' +
+            '<p>매일 목소리를 나눌 사람을 등록해주세요.<br>번호는 이 기기에만 저장돼요.</p>' +
+            '<div class="onb-field"><label class="onb-label">부르는 이름</label>' +
+            '<input class="onb-input" id="call-name-input" type="text" maxlength="20" placeholder="예) 엄마" value="' + (dailySettings.callName || '') + '"></div>' +
+            '<div class="onb-field"><label class="onb-label">전화번호</label>' +
+            '<input class="onb-input" id="call-phone-input" type="tel" inputmode="tel" maxlength="20" placeholder="예) 01012345678" value="' + (dailySettings.callPhone || '') + '"></div>' +
+            '<div class="onb-field"><label class="onb-label">하루 목표 통화 시간(분)</label>' +
+            '<input class="onb-input" id="call-goal-input" type="number" min="1" max="120" value="' + dailySettings.callGoalMin + '"></div>' +
+            '<div class="onb-error" id="call-setup-error"></div>' +
+            '<button class="btn btn-green" onclick="saveCallSetup()">저장하기</button>' +
+            '<button class="btn btn-yellow" onclick="closeCallPanel()">취소</button>'
+        );
+    }
+
+    async function saveCallSetup() {
+        const name = document.getElementById('call-name-input').value.trim();
+        const phone = document.getElementById('call-phone-input').value.replace(/[^0-9+]/g, '');
+        const goal = parseInt(document.getElementById('call-goal-input').value, 10);
+        const err = document.getElementById('call-setup-error');
+        if (!name) { err.innerText = "부르는 이름을 입력해주세요."; return; }
+        if (phone.length < 8) { err.innerText = "전화번호를 정확히 입력해주세요."; return; }
+        if (!goal || goal < 1) { err.innerText = "목표 시간을 1분 이상으로 정해주세요."; return; }
+        dailySettings.callName = name;
+        dailySettings.callPhone = phone;
+        dailySettings.callGoalMin = goal;
+        await saveUserState();
+        renderDailyMissions();
+        openCallMission();
+    }
+
+    function placeCall() {
+        localStorage.setItem(CALL_PENDING_KEY, String(Date.now()));
+        closeCallPanel();
+        window.location.href = 'tel:' + dailySettings.callPhone;
+    }
+
+    async function checkPendingCall() {
+        const started = localStorage.getItem(CALL_PENDING_KEY);
+        if (!started) return;
+        const elapsedMin = (Date.now() - Number(started)) / 60000;
+        localStorage.removeItem(CALL_PENDING_KEY);
+        if (elapsedMin < 0.25) return; // 바로 취소하고 돌아온 경우는 세지 않음
+
+        const d = todayData();
+        d.call.minutes += elapsedMin;
+        await saveUserState();
+
+        if (!d.call.done && d.call.minutes >= dailySettings.callGoalMin) {
+            await completeMission('call', "통화하기");
+            showCallPanel(
+                '<div class="call-timer">' + Math.floor(d.call.minutes) + '분</div>' +
+                '<h3>목소리 잘 나눴어요 💛</h3>' +
+                '<p>오늘 통화 미션을 완료했어요.<br>연결되어 있다는 느낌, 오래 남을 거예요.</p>' +
+                '<button class="btn btn-green" onclick="closeCallPanel()">고마워요</button>'
+            );
+        } else {
+            renderDailyMissions();
+            const remain = Math.ceil(dailySettings.callGoalMin - d.call.minutes);
+            showCallPanel(
+                '<div class="call-timer">' + Math.floor(d.call.minutes) + '분</div>' +
+                '<h3>통화 기록했어요</h3>' +
+                '<p>' + (remain > 0 ? (remain + '분만 더 이야기하면 오늘 미션 완료예요.') : '잘하고 있어요!') + '</p>' +
+                '<button class="btn btn-yellow" onclick="closeCallPanel()">확인</button>'
+            );
+        }
+    }
+
+    function showCallPanel(html) {
+        document.getElementById('call-panel').innerHTML = html;
+        document.getElementById('call-modal').classList.add('show');
+    }
+    function closeCallPanel() {
+        document.getElementById('call-modal').classList.remove('show');
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) checkPendingCall();
+    });
+    window.addEventListener('pageshow', () => { checkPendingCall(); });
+
+    // ===================================================================
+    // 걷기 미션 (가속도 센서로 걸음 추정)
+    // ===================================================================
+    let walkTracking = false;
+    let walkSteps = 0;
+    let walkPrevMag = 0;
+    let walkRising = false;
+    let walkLastStepAt = 0;
+    let walkWakeLock = null;
+    const WALK_PEAK_THRESHOLD = 12.5;   // m/s² (중력 포함)
+    const WALK_MIN_STEP_GAP = 260;      // ms
+
+    async function startWalkMission() {
+        const d = todayData();
+        if (d.walk.done) {
+            showEventToast("오늘 걷기 미션은 이미 완료했어요 🚶", "neutral");
+            return;
+        }
+        const hasMotion = typeof DeviceMotionEvent !== 'undefined';
+        if (!hasMotion) { walkPhotoFallback(); return; }
+
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            try {
+                const perm = await DeviceMotionEvent.requestPermission();
+                if (perm !== 'granted') { walkPhotoFallback(); return; }
+            } catch (e) { walkPhotoFallback(); return; }
+        }
+
+        walkSteps = d.walk.steps || 0;
+        walkTracking = true;
+        walkPrevMag = 0;
+        walkRising = false;
+        walkLastStepAt = 0;
+        window.addEventListener('devicemotion', onWalkMotion);
+
+        document.getElementById('walk-goal-text').innerText = "목표 " + dailySettings.walkGoal.toLocaleString() + "걸음";
+        updateWalkUI();
+        document.getElementById('walk-tracker-view').style.display = 'flex';
+        requestWalkWakeLock();
+    }
+
+    async function requestWalkWakeLock() {
+        try {
+            if ('wakeLock' in navigator) walkWakeLock = await navigator.wakeLock.request('screen');
+        } catch (e) {}
+    }
+
+    function onWalkMotion(e) {
+        if (!walkTracking) return;
+        const a = e.accelerationIncludingGravity;
+        if (!a || a.x === null) return;
+        const mag = Math.sqrt((a.x || 0) * (a.x || 0) + (a.y || 0) * (a.y || 0) + (a.z || 0) * (a.z || 0));
+        const now = Date.now();
+
+        if (!walkRising && mag > WALK_PEAK_THRESHOLD && mag > walkPrevMag) walkRising = true;
+        if (walkRising && mag < walkPrevMag) {
+            walkRising = false;
+            if (now - walkLastStepAt > WALK_MIN_STEP_GAP) {
+                walkLastStepAt = now;
+                walkSteps++;
+                updateWalkUI();
+                if (walkSteps % 25 === 0) persistWalkSteps();
+                if (walkSteps >= dailySettings.walkGoal) finishWalkGoal();
+            }
+        }
+        walkPrevMag = mag;
+    }
+
+    function updateWalkUI() {
+        const el = document.getElementById('walk-count');
+        if (el) el.innerText = walkSteps.toLocaleString();
+    }
+
+    async function persistWalkSteps() {
+        const d = todayData();
+        d.walk.steps = walkSteps;
+        await saveUserState();
+    }
+
+    async function finishWalkGoal() {
+        if (todayData().walk.done) return;
+        await persistWalkSteps();
+        await completeMission('walk', "걷기");
+        document.getElementById('walk-hint-text').innerHTML = "🎉 목표를 채웠어요!<br>이제 마쳐도 좋아요.";
+    }
+
+    async function stopWalkTracking() {
+        walkTracking = false;
+        window.removeEventListener('devicemotion', onWalkMotion);
+        try { if (walkWakeLock) { await walkWakeLock.release(); walkWakeLock = null; } } catch (e) {}
+        await persistWalkSteps();
+        document.getElementById('walk-tracker-view').style.display = 'none';
+        renderDailyMissions();
+    }
+
+    // 센서를 못 쓰는 기기: 산책 사진으로 인증
+    function walkPhotoFallback() {
+        showCallPanel(
+            '<h3>🚶 산책 인증</h3>' +
+            '<p>이 기기에서는 걸음 수를 셀 수 없어요.<br>대신 산책하면서 본 풍경을 한 장 찍어서 인증해요.</p>' +
+            '<button class="btn btn-green" onclick="closeCallPanel(); capturePhotoViaInput(onWalkPhotoTaken);">📸 산책 사진 찍기</button>' +
+            '<button class="btn btn-yellow" onclick="closeCallPanel()">나중에</button>'
+        );
+    }
+
+    function capturePhotoViaInput(cb) {
+        const input = document.getElementById('med-file-input');
+        input.value = "";
+        input.onchange = (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => resizeImageDataUrl(reader.result, 480, 0.7, cb);
+            reader.readAsDataURL(file);
+        };
+        input.click();
+    }
+
+    async function onWalkPhotoTaken() {
+        const d = todayData();
+        d.walk.steps = dailySettings.walkGoal;
+        await saveUserState();
+        await completeMission('walk', "걷기");
+    }
+
+    // ===================================================================
+    // 제록이 대화
+    //
+    // 지금은 기기 안에서 도는 규칙 기반 대화예요. 실제 생성형 AI를 붙이려면
+    // API 키를 숨길 수 있는 백엔드(예: Cloudflare Workers)를 하나 두고
+    // 그 주소를 JEROK_AI_ENDPOINT에 넣으면 됩니다.
+    // (키를 이 파일에 직접 넣으면 사이트를 여는 누구나 볼 수 있어서 위험해요.)
+    // 위기 신호 감지는 AI 연결 여부와 상관없이 항상 기기에서 먼저 확인합니다.
+    // ===================================================================
+    const JEROK_AI_ENDPOINT = "";
+
+    const CRISIS_WORDS = ["죽고싶", "죽고 싶", "죽을래", "자살", "목숨", "사라지고싶", "사라지고 싶",
+        "없어지고싶", "없어지고 싶", "살기싫", "살기 싫", "죽어버리", "자해", "손목", "뛰어내리",
+        "극단적", "유서", "끝내고싶", "끝내고 싶"];
+
+    const CHAT_TOPICS = [
+        { key: "sad", words: ["우울", "슬퍼", "슬프", "눈물", "울었", "울고", "괴로", "비참", "공허", "허무"],
+          replies: [
+            "그런 마음이 드는 날엔 하루가 참 길게 느껴지죠.\n지금 그 기분이 언제부터 이어지고 있었어요?",
+            "슬픔을 말로 꺼내는 것만으로도 쉽지 않았을 텐데, 이야기해줘서 고마워요.\n오늘 특별히 마음을 무겁게 한 일이 있었나요?",
+            "괜찮은 척하지 않아도 돼요. 지금은 그냥 그런 날인 거예요.\n조금 더 들려주실 수 있어요?"
+          ] },
+        { key: "anxious", words: ["불안", "걱정", "초조", "무서", "두렵", "긴장", "떨려", "겁나"],
+          replies: [
+            "머릿속이 시끄러울 때 정말 힘들죠.\n혹시 지금 가장 크게 걱정되는 게 뭔지 하나만 말해줄 수 있어요?",
+            "불안은 아직 일어나지 않은 일을 미리 겪게 만들죠.\n숨을 4초 들이쉬고 4초 내쉬어볼까요? 저도 같이 기다릴게요.",
+            "그 걱정이 현실이 될 확률보다, 지금 힘든 마음이 훨씬 확실하네요.\n무엇이 제일 마음에 걸려요?"
+          ] },
+        { key: "lonely", words: ["외로", "혼자", "쓸쓸", "아무도", "친구가 없", "고립", "소외"],
+          replies: [
+            "혼자라고 느껴질 때가 가장 시린 것 같아요.\n지금은 제가 여기 있어요. 오늘 하루는 어땠어요?",
+            "사람들 사이에 있어도 외로울 때가 있죠.\n마지막으로 누군가와 편하게 이야기한 게 언제였어요?",
+            "그 마음 알아요. 연결되고 싶은데 방법을 모를 때가 있죠.\n오늘 잠깐이라도 목소리 나눌 수 있는 사람이 있을까요?"
+          ] },
+        { key: "tired", words: ["지쳐", "지친", "피곤", "무기력", "귀찮", "힘이 없", "번아웃", "아무것도"],
+          replies: [
+            "몸도 마음도 방전됐나 봐요.\n그럴 땐 더 하려고 애쓰는 것보다 잠깐 멈추는 게 나을 수도 있어요.",
+            "아무것도 하기 싫은 건 게으른 게 아니라, 이미 너무 많이 버텨왔다는 뜻일 수 있어요.\n요즘 잠은 어때요?",
+            "지친 상태로도 여기까지 온 것만으로 충분해요.\n오늘 딱 하나만 한다면 뭐가 제일 편할까요?"
+          ] },
+        { key: "angry", words: ["화나", "짜증", "분노", "억울", "열받", "빡쳐", "미치겠"],
+          replies: [
+            "그럴 만하니까 화가 났겠죠.\n무슨 일이 있었는지 편하게 쏟아내도 괜찮아요.",
+            "억울한 감정은 눌러두면 더 커지더라고요.\n어떤 부분이 제일 부당하게 느껴졌어요?",
+            "화가 난다는 건 그만큼 중요한 게 있었다는 뜻이에요.\n무엇이 지켜지지 않았나요?"
+          ] },
+        { key: "study", words: ["과제", "시험", "학점", "공부", "취업", "발표", "졸업", "학교", "수업"],
+          replies: [
+            "해야 할 게 쌓이면 숨이 막히죠.\n지금 제일 급한 것 하나만 꼽는다면 뭐예요?",
+            "다 잘하려고 하면 시작조차 어려워져요.\n오늘은 딱 15분만 손대볼 만한 게 있을까요?",
+            "성적이 당신의 값어치를 말해주진 않아요.\n요즘 어떤 부분이 가장 부담돼요?"
+          ] },
+        { key: "sleep", words: ["잠", "불면", "못자", "새벽", "잠이 안"],
+          replies: [
+            "잠이 안 오는 밤은 생각이 유독 커지죠.\n요즘 몇 시쯤 누워요?",
+            "누워서 뒤척이는 시간만큼 힘든 것도 없어요.\n자기 전에 주로 무슨 생각이 드나요?",
+            "잠이 안 올 땐 억지로 자려 할수록 더 안 오더라고요.\n오늘은 화면을 조금 일찍 꺼보는 건 어때요?"
+          ] },
+        { key: "med", words: ["약", "병원", "상담", "처방", "치료", "정신과"],
+          replies: [
+            "약이나 치료 이야기를 꺼내는 것도 용기가 필요했을 텐데요.\n요즘은 잘 챙기고 있어요?",
+            "치료를 받는 건 약해서가 아니라 자기를 돌보고 있다는 뜻이에요.\n오늘 약은 챙겼어요?",
+            "꾸준히 이어가는 게 제일 어렵죠.\n혹시 챙기기 힘들게 만드는 게 있나요?"
+          ] },
+        { key: "happy", words: ["좋아", "좋았", "좋은", "기뻐", "기분좋", "행복", "즐거", "신나", "다행",
+            "웃었", "웃음", "잘됐", "잘 됐", "설레", "나아졌", "나아진", "괜찮아졌", "재밌", "재미있"],
+          replies: [
+            "그 이야기 들으니 저까지 기분이 좋아지네요!\n어떤 일이 있었는지 더 들려주세요.",
+            "좋은 일은 자세히 말할수록 더 오래 남는대요.\n무슨 일이었어요?",
+            "그런 순간들이 쌓여서 버틸 힘이 되더라고요.\n오늘 또 좋았던 게 있었어요?"
+          ] },
+        { key: "greeting", words: ["안녕", "하이", "반가", "잘 있었", "왔어", "여보세요"],
+          replies: [
+            "안녕하세요! 와줘서 반가워요.\n오늘 하루는 어땠어요?",
+            "안녕하세요 😊\n지금 마음은 어떤 색깔에 가까워요?",
+            "반가워요! 오늘은 어떤 이야기를 나눠볼까요?"
+          ] },
+        { key: "thanks", words: ["고마", "감사", "덕분"],
+          replies: [
+            "저야말로 이야기해줘서 고마워요.\n언제든 다시 와도 좋아요.",
+            "그렇게 말해주니 저도 힘이 나요 🌱\n또 뭐든 편하게 얘기해요.",
+            "도움이 됐다니 다행이에요.\n오늘 하루도 잘 버텨줘서 고마워요."
+          ] },
+        { key: "about", words: ["누구", "뭐야", "너는", "제록이", "이름이", "정체"],
+          replies: [
+            "저는 제록이예요. 제주대학교 학생들 곁에 있으려고 만들어진 친구고요.\n전문 상담사는 아니지만, 이야기는 얼마든지 들어드릴 수 있어요.",
+            "제록이라고 해요 🦌\n판단하거나 조언을 밀어붙이지 않고, 그냥 들어주는 역할이에요."
+          ] },
+        { key: "help", words: ["어떡", "어떻게", "모르겠", "방법", "뭘 해야"],
+          replies: [
+            "답을 몰라도 괜찮아요. 지금 상태를 말로 꺼낸 것만으로 한 걸음이에요.\n제일 먼저 덜어내고 싶은 게 뭐예요?",
+            "한 번에 다 해결하려 하지 않아도 돼요.\n오늘 하루만 놓고 보면 뭐가 제일 무거워요?"
+          ] }
+    ];
+
+    const CHAT_DEFAULTS = [
+        "그랬군요. 조금 더 자세히 들려줄 수 있어요?",
+        "듣고 있어요. 그때 마음은 어땠어요?",
+        "말해줘서 고마워요.\n그 일이 지금도 마음에 남아 있나요?",
+        "음... 제가 잘 이해했는지 모르겠어요.\n조금만 더 이야기해줄래요?",
+        "그런 일이 있었군요.\n그 상황에서 제일 힘들었던 건 뭐였어요?"
+    ];
+
+    const CHAT_QUICK_DEFAULT = ["오늘 좀 힘들었어", "그냥 무기력해", "잠이 안 와", "괜찮아진 것 같아", "고마워"];
+
+    let chatStarted = false;
+    let chatLastTopic = null;
+    const chatLastIndex = {};
+
+    function detectCrisis(text) {
+        const t = text.replace(/\s/g, '');
+        return CRISIS_WORDS.some(w => t.includes(w.replace(/\s/g, '')));
+    }
+
+    function pickReply(topic) {
+        const list = topic ? topic.replies : CHAT_DEFAULTS;
+        const key = topic ? topic.key : "_default";
+        let idx = Math.floor(Math.random() * list.length);
+        if (list.length > 1 && chatLastIndex[key] === idx) idx = (idx + 1) % list.length;
+        chatLastIndex[key] = idx;
+        return list[idx];
+    }
+
+    // "안 좋아", "재미없어"처럼 뒤집힌 표현이 긍정으로 잡히지 않도록 거르는 장치
+    const NEGATION_PATTERNS = ["안좋", "안 좋", "좋지않", "좋지 않", "안괜찮", "안 괜찮",
+        "재미없", "재밌지않", "행복하지않", "행복하지 않", "즐겁지않", "즐겁지 않", "안기뻐", "웃지도"];
+
+    function ruleBasedReply(text) {
+        const t = text.toLowerCase();
+        const negated = NEGATION_PATTERNS.some(p => t.includes(p));
+        let best = null;
+        let bestScore = 0;
+        CHAT_TOPICS.forEach(topic => {
+            if (negated && topic.key === "happy") return; // 뒤집힌 문장은 긍정으로 보지 않음
+            let score = 0;
+            topic.words.forEach(w => { if (t.includes(w)) score++; });
+            if (score > bestScore) { bestScore = score; best = topic; }
+        });
+        // 부정 표현만 있고 다른 단서가 없으면 우울 쪽으로 받아줌
+        if (!best && negated) best = CHAT_TOPICS.find(x => x.key === "sad");
+        chatLastTopic = best ? best.key : null;
+        return pickReply(best);
+    }
+
+    // 실제 AI를 붙이면 여기로 흘러갑니다. 실패하면 규칙 기반으로 자연스럽게 돌아가요.
+    async function askJerok(text) {
+        if (JEROK_AI_ENDPOINT) {
+            try {
+                const res = await fetch(JEROK_AI_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text, name: userProfile ? userProfile.name : null })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.reply) return data.reply;
+                }
+            } catch (e) {}
+        }
+        return ruleBasedReply(text);
+    }
+
+    function showChat() {
+        document.getElementById('main-view').style.display = 'none';
+        const g = document.getElementById('game-view'); if (g) g.style.display = 'none';
+        const m = document.getElementById('medication-view'); if (m) m.style.display = 'none';
+        document.getElementById('chat-view').style.display = 'flex';
+        window.scrollTo(0, 0);
+
+        const avatar = document.getElementById('chat-avatar');
+        const logoImg = document.querySelector('.logo-badge img');
+        if (avatar && logoImg && !avatar.querySelector('img')) {
+            const clone = document.createElement('img');
+            clone.src = logoImg.src;
+            clone.alt = "제록이";
+            avatar.appendChild(clone);
+        }
+
+        if (!chatStarted) {
+            chatStarted = true;
+            const name = userProfile ? userProfile.name : "";
+            addChatMessage('bot',
+                (name ? (name + "님, ") : "") + "안녕하세요. 저는 제록이예요 🦌\n오늘 마음은 어떤가요? 편하게 적어주세요.");
+            renderQuickReplies(CHAT_QUICK_DEFAULT);
+        }
+        setTimeout(() => document.getElementById('chat-input').focus(), 120);
+    }
+
+    function closeChat() {
+        document.getElementById('chat-view').style.display = 'none';
+        document.getElementById('main-view').style.display = 'flex';
+        window.scrollTo(0, 0);
+    }
+
+    function addChatMessage(who, text) {
+        const log = document.getElementById('chat-log');
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-msg ' + who;
+        if (who === 'bot') {
+            const av = document.createElement('span');
+            av.className = 'chat-mini-avatar';
+            const logoImg = document.querySelector('.logo-badge img');
+            if (logoImg) {
+                const im = document.createElement('img');
+                im.src = logoImg.src;
+                im.alt = "";
+                av.appendChild(im);
+            }
+            wrap.appendChild(av);
+        }
+        const bubble = document.createElement('div');
+        bubble.className = 'chat-bubble';
+        bubble.innerText = text;
+        wrap.appendChild(bubble);
+        log.appendChild(wrap);
+        log.scrollTop = log.scrollHeight;
+    }
+
+    function addCrisisCard() {
+        const log = document.getElementById('chat-log');
+        const card = document.createElement('div');
+        card.className = 'chat-crisis-card';
+        card.innerHTML =
+            '<h4>지금 많이 힘들어 보여요</h4>' +
+            '<p>혼자 견디지 않아도 괜찮아요. 지금 바로 이야기 나눌 수 있는 곳이 있어요.<br>제록이보다 훨씬 잘 도와줄 수 있는 사람들이에요.</p>' +
+            '<a href="tel:109">📞 109 자살예방 상담전화 (24시간)</a>' +
+            '<a href="tel:1393" class="secondary">📞 1393 자살예방상담</a>' +
+            '<a href="tel:119" class="secondary">🚑 119 응급</a>';
+        log.appendChild(card);
+        log.scrollTop = log.scrollHeight;
+    }
+
+    function showTyping() {
+        const log = document.getElementById('chat-log');
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-msg bot';
+        wrap.id = 'chat-typing-indicator';
+        const bubble = document.createElement('div');
+        bubble.className = 'chat-bubble chat-typing';
+        bubble.innerHTML = '<span></span><span></span><span></span>';
+        wrap.appendChild(bubble);
+        log.appendChild(wrap);
+        log.scrollTop = log.scrollHeight;
+    }
+    function hideTyping() {
+        const el = document.getElementById('chat-typing-indicator');
+        if (el) el.remove();
+    }
+
+    function renderQuickReplies(list) {
+        const row = document.getElementById('chat-quick-row');
+        row.innerHTML = list.map(t =>
+            '<button class="chat-quick-btn" onclick="quickReply(this)">' + t + '</button>'
+        ).join('');
+    }
+
+    function quickReply(btn) {
+        document.getElementById('chat-input').value = btn.innerText;
+        sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = "";
+        addChatMessage('me', text);
+
+        const isCrisis = detectCrisis(text);
+        showTyping();
+
+        const delay = isCrisis ? 500 : (700 + Math.random() * 600);
+        setTimeout(async () => {
+            hideTyping();
+            if (isCrisis) {
+                addChatMessage('bot',
+                    "지금 그런 생각이 들 만큼 많이 아팠군요.\n그 말을 꺼내줘서 정말 다행이에요.\n제가 옆에 있을게요. 그런데 지금은 저보다 더 든든한 사람들과 이야기했으면 좋겠어요.");
+                addCrisisCard();
+                renderQuickReplies(["조금 진정됐어", "그냥 들어줘", "무슨 일이 있었냐면"]);
+                return;
+            }
+            const reply = await askJerok(text);
+            addChatMessage('bot', reply);
+            renderQuickReplies(nextQuickReplies());
+        }, delay);
+    }
+
+    function nextQuickReplies() {
+        switch (chatLastTopic) {
+            case "sad":
+            case "lonely":
+                return ["그냥 들어줘", "요즘 계속 그래", "조금 나아진 것 같아", "고마워"];
+            case "anxious":
+                return ["같이 숨 쉬어줘", "내일이 걱정돼", "괜찮아지고 싶어"];
+            case "tired":
+                return ["잠을 잘 못 자", "쉬고 싶어", "그래도 해야 해"];
+            case "study":
+                return ["과제가 너무 많아", "다 못할 것 같아", "잠깐 쉴래"];
+            case "med":
+                return ["오늘 약 챙겼어", "자꾸 까먹어", "병원 가기 싫어"];
+            case "happy":
+                return ["더 얘기할래", "오늘 진짜 좋았어", "고마워"];
+            default:
+                return CHAT_QUICK_DEFAULT;
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'chat-input') {
+            sendChatMessage();
+        }
+    });
+
+    // ===================================================================
+    // 시작
+    // ===================================================================
+    (async function bootDaily() {
+        await loadUserState();
+        if (!needsOnboarding()) {
+            renderHeaderUser();
+            renderDailyMissions();
+        }
+    })();
+
+    // 스플래시를 닫은 뒤 온보딩 여부를 판단
+    const originalHideSplash = hideSplash;
+    hideSplash = function () {
+        originalHideSplash();
+        setTimeout(async () => {
+            await loadUserState();
+            if (needsOnboarding()) {
+                showOnboarding();
+            } else {
+                startDailySession();
+                checkPendingCall();
+            }
+        }, 60);
+    };
 </script>
 
 </body>
