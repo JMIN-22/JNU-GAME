@@ -304,6 +304,11 @@
         .card-signal-green h3 { color: #296b4c; }
         .card-signal-green p { color: #3c6552; }
 
+        /* 약 챙겨 먹기 인증 카드 */
+        .card-med { background: linear-gradient(155deg, #f3f2ff, #eae6ff); border: 1px solid #dcd6f9; margin-top: 16px; }
+        .card-med h3 { color: #4b3ea8; margin-bottom: 8px; font-size: 1.05rem; font-weight: 700; }
+        .card-med p { font-size: 0.85rem; margin-bottom: 14px; line-height: 1.55; color: #5c53a0; }
+
         .btn {
             display: flex;
             align-items: center;
@@ -327,6 +332,7 @@
         .btn-green { background: var(--calm-green); color: white; box-shadow: 0 8px 16px rgba(61,154,111,0.28); }
         .btn-yellow { background: white; color: var(--ink); box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
         .btn-blue { background: var(--police-blue); color: white; box-shadow: 0 8px 16px rgba(47,111,237,0.28); }
+        .btn-med { background: linear-gradient(155deg, #7b6ce0, #5a4bc4); color: white; box-shadow: 0 8px 16px rgba(90,75,196,0.3); }
         .btn-row { display: flex; gap: 10px; }
         .btn-row .btn { margin-bottom: 0; }
 
@@ -1991,6 +1997,296 @@
             .game-tab-btn { font-size: 0.66rem; }
             .game-tab-btn .tab-ico { font-size: 1.1rem; }
         }
+
+        /* ===================================================================
+           약 챙겨 먹기 인증
+        =================================================================== */
+        #medication-view {
+            background: linear-gradient(165deg, #f3f2ff 0%, #e8e3ff 50%, #ded6fb 100%);
+            justify-content: center;
+            align-items: center;
+            padding: 16px 14px 24px;
+        }
+        .med-box {
+            width: 100%;
+            background: linear-gradient(180deg, #ffffff 0%, #fbfaff 100%);
+            padding: 16px 16px 20px;
+            border-radius: 28px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: 0 22px 44px rgba(90, 75, 196, 0.16), 0 6px 14px rgba(90, 75, 196, 0.08);
+        }
+        .med-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .med-top-title {
+            font-family: 'Gaegu', 'Noto Sans KR', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4b3ea8;
+        }
+        .btn-back-mini {
+            background: #f2f0fc;
+            border: none;
+            border-radius: 999px;
+            padding: 7px 13px;
+            font-size: 0.76rem;
+            font-weight: bold;
+            color: #6b5fc4;
+            cursor: pointer;
+        }
+        .btn-back-mini:active { transform: scale(0.95); }
+
+        .med-status-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(160deg, #f7f5ff, #ece7ff);
+            border: 1px solid #ddd5fb;
+            border-radius: 20px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .med-status-card.done { background: linear-gradient(160deg, #f1faf5, #e2f5ea); border-color: #cdeadb; }
+        .med-status-thumb {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            flex-shrink: 0;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(90,75,196,0.12);
+        }
+        .med-status-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .med-status-headline { font-weight: bold; font-size: 0.95rem; color: #4b3ea8; }
+        .med-status-card.done .med-status-headline { color: #2f7a57; }
+        .med-status-sub { font-size: 0.76rem; color: #7a70b8; margin-top: 2px; }
+        .med-status-card.done .med-status-sub { color: #4b9370; }
+
+        .med-streak-row { display: flex; justify-content: center; margin-bottom: 14px; }
+        .med-streak-badge {
+            background: linear-gradient(135deg, #ffd977, #ffb340);
+            color: #6b4200;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(255, 168, 43, 0.3);
+        }
+        .med-streak-badge.zero { background: #f2f0fc; color: #7a70b8; box-shadow: none; }
+
+        .med-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .med-day {
+            aspect-ratio: 1 / 1;
+            border-radius: 9px;
+            background: #f2f0fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: #a89dd6;
+            font-weight: bold;
+        }
+        .med-day.checked { background: linear-gradient(160deg, #9ddcb4, var(--calm-green)); color: white; }
+        .med-day.today { box-shadow: 0 0 0 2px #7b6ce0; }
+        .med-day.future { visibility: hidden; }
+
+        .med-primary-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 18px;
+            border: none;
+            background: linear-gradient(160deg, #8a7ce8, #5a4bc4);
+            color: white;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 0 #4636a0, 0 8px 16px rgba(90, 75, 196, 0.3);
+            transition: transform 0.12s ease, box-shadow 0.2s ease;
+        }
+        .med-primary-btn:active { transform: translateY(3px); box-shadow: none; }
+        .med-primary-btn.done { background: linear-gradient(160deg, #9ddcb4, var(--calm-green)); box-shadow: 0 4px 0 #2f7a57, 0 8px 16px rgba(61,154,111,0.28); }
+
+        .med-ref-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #faf9ff;
+            border: 1px solid #ece7fb;
+            border-radius: 16px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
+            text-align: left;
+        }
+        .med-ref-thumb {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            flex-shrink: 0;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(90,75,196,0.12);
+        }
+        .med-ref-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .med-ref-text { flex: 1; min-width: 0; }
+        .med-ref-title { font-size: 0.8rem; font-weight: bold; color: #4b3ea8; }
+        .med-ref-sub { font-size: 0.66rem; color: #8a80c4; margin-top: 1px; }
+        .med-ref-btn {
+            flex-shrink: 0;
+            background: #efeafd;
+            color: #5a4bc4;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 14px;
+            font-size: 0.74rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .med-ref-btn:active { transform: scale(0.95); }
+
+        .med-privacy-note { font-size: 0.7rem; color: #9a90c9; line-height: 1.5; }
+
+        /* 카메라 / 결과 오버레이 */
+        .med-camera-overlay {
+            position: fixed;
+            inset: 0;
+            background: #16141f;
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+        }
+        .med-camera-topbar {
+            position: absolute;
+            top: max(16px, env(safe-area-inset-top));
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .med-camera-cancel {
+            position: absolute;
+            left: 16px;
+            background: rgba(255,255,255,0.14);
+            border: none;
+            color: #fff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .med-camera-stage {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 3 / 4;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #000;
+        }
+        .med-camera-stage video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .med-camera-ghost {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.32;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+        .med-camera-hint {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.78rem;
+            margin: 14px 0 22px;
+            text-align: center;
+            min-height: 18px;
+        }
+        .med-camera-shutter {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.85);
+            background: #fff;
+            cursor: pointer;
+        }
+        .med-camera-shutter:active { transform: scale(0.92); }
+
+        .med-result-card {
+            width: 100%;
+            max-width: 340px;
+            background: #fff;
+            border-radius: 24px;
+            padding: 18px;
+            text-align: center;
+        }
+        .med-result-img {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 14px;
+        }
+        .med-result-msg {
+            font-weight: bold;
+            font-size: 1rem;
+            color: #4b3ea8;
+            margin-bottom: 14px;
+        }
+        .med-download-link {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 14px;
+            background: #f2f0fc;
+            color: #5a4bc4;
+            font-weight: bold;
+            font-size: 0.82rem;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        .med-close-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 14px;
+            border: none;
+            background: #f6f2ea;
+            color: #6b5b45;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .med-close-btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
@@ -2050,6 +2346,13 @@
                 <button onclick="showGame()" class="btn btn-green">🐣 병아리 키우며 마음 나누기</button>
                 <div class="signal-tip">💚 혼자라고 생각하지 마세요. 오늘 하루도 잘 견뎌낸 당신을 응원합니다.</div>
             </div>
+
+            <div class="card card-med">
+                <h3>💊 약 챙겨 먹기 인증</h3>
+                <p>멀리 떨어져 있으면 가족이 매일 약 챙기는 걸 옆에서 봐줄 수 없죠. 사진으로 가볍게 기록하고, 원할 때만 가족에게 보내보세요.</p>
+                <button onclick="showMedication()" class="btn btn-med">📸 오늘 약 인증하기</button>
+                <div class="signal-tip">🔒 사진은 이 기기에만 저장돼요. '보내기'를 누를 때만 전달됩니다.</div>
+            </div>
         </div>
 
         <footer>
@@ -2078,6 +2381,71 @@
                 Built with ❤️ for student mental health
             </div>
         </footer>
+    </div>
+
+    <div id="medication-view" class="view" style="display: none;">
+        <div class="med-box" id="med-box">
+            <div class="med-top-row">
+                <button class="btn-back-mini" onclick="closeMedication()">‹ 뒤로</button>
+                <span class="med-top-title">💊 약 챙겨 먹기</span>
+                <span style="width:52px;"></span>
+            </div>
+
+            <div class="med-status-card" id="med-status-card">
+                <div class="med-status-thumb" id="med-status-thumb">💊</div>
+                <div>
+                    <div class="med-status-headline" id="med-status-headline">아직이에요</div>
+                    <div class="med-status-sub" id="med-status-sub">지금 챙겨볼까요?</div>
+                </div>
+            </div>
+
+            <div class="med-streak-row">
+                <span class="med-streak-badge zero" id="med-streak-badge">오늘부터 시작해봐요 🌱</span>
+            </div>
+
+            <div class="med-calendar" id="med-calendar"></div>
+
+            <button class="med-primary-btn" id="med-primary-btn" onclick="startMedCheckin()">📸 오늘 약 먹은 사진 찍기</button>
+
+            <div class="med-ref-row">
+                <span class="med-ref-thumb" id="med-ref-thumb">🖼️</span>
+                <div class="med-ref-text">
+                    <div class="med-ref-title">내 약 사진 등록</div>
+                    <div class="med-ref-sub" id="med-ref-sub">등록해두면 매번 비슷한 구도로 찍을 수 있어요</div>
+                </div>
+                <button class="med-ref-btn" onclick="startMedRefPhoto()">등록</button>
+            </div>
+
+            <div class="med-privacy-note">🔒 사진은 이 기기에만 저장돼요. 서버로 전송되지 않고, '가족에게 보내기'를 누를 때만 내가 선택한 곳으로 전달돼요.</div>
+        </div>
+
+        <!-- 카메라 촬영 화면 -->
+        <div id="med-camera-view" class="med-camera-overlay" style="display:none;">
+            <div class="med-camera-topbar">
+                <button class="med-camera-cancel" onclick="cancelMedCamera()">✕</button>
+                <span id="med-camera-title">오늘 약 사진 찍기</span>
+            </div>
+            <div class="med-camera-stage">
+                <video id="med-camera-video" autoplay playsinline muted></video>
+                <img id="med-camera-ghost" class="med-camera-ghost" style="display:none;" alt="">
+            </div>
+            <div class="med-camera-hint" id="med-camera-hint">희미하게 보이는 사진과 비슷한 구도로 찍어보세요</div>
+            <button class="med-camera-shutter" id="med-camera-shutter" onclick="captureMedPhoto()" aria-label="촬영"></button>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="med-result-view" class="med-camera-overlay" style="display:none;">
+            <div class="med-result-card">
+                <img id="med-result-img" class="med-result-img" alt="오늘 인증 사진">
+                <div class="med-result-msg" id="med-result-msg">오늘도 잘 챙겼어요! 😊</div>
+                <button class="btn-med" id="med-share-btn" onclick="shareMedPhoto()" style="margin-bottom:10px;">💌 가족에게 보내기</button>
+                <a id="med-download-link" class="med-download-link" download="med-checkin.jpg" style="display:none;">📥 사진 저장하기</a>
+                <button class="med-close-btn" onclick="closeMedResult()">확인</button>
+            </div>
+        </div>
+
+        <input type="file" id="med-file-input" accept="image/*" capture="environment" style="display:none;">
+        <canvas id="med-canvas" style="display:none;"></canvas>
     </div>
 
     <div id="game-view" class="view stage-0" style="display: none;">
@@ -2300,6 +2668,25 @@
 </div>
 
 <script>
+    // localStorage 기반 window.storage (게임 저장 및 복약 인증 데이터가 실제 기기에 남도록)
+    if (!window.storage) {
+        window.storage = {
+            async get(key) {
+                try {
+                    const raw = localStorage.getItem(key);
+                    return raw === null ? null : { value: raw };
+                } catch (e) { return null; }
+            },
+            async set(key, value) {
+                try { localStorage.setItem(key, value); return true; }
+                catch (e) { return false; }
+            },
+            async delete(key) {
+                try { localStorage.removeItem(key); } catch (e) {}
+            }
+        };
+    }
+
     function hideSplash() {
         const splash = document.getElementById('splash-view');
         if (splash) splash.classList.add('hide');
@@ -2852,6 +3239,8 @@
 
     function showGame() {
         document.getElementById('main-view').style.display = 'none';
+        const medView = document.getElementById('medication-view');
+        if (medView) medView.style.display = 'none';
         document.getElementById('game-view').style.display = 'flex';
         window.scrollTo(0, 0);
         gameStarted = true;
@@ -2876,6 +3265,8 @@
 
     function showMain() {
         document.getElementById('game-view').style.display = 'none';
+        const medView = document.getElementById('medication-view');
+        if (medView) medView.style.display = 'none';
         document.getElementById('main-view').style.display = 'flex';
         window.scrollTo(0, 0);
     }
@@ -4697,6 +5088,303 @@
             // 저장된 데이터가 없으면 그냥 새로 시작
         }
     })();
+
+    // ===================================================================
+    // 약 챙겨 먹기 인증
+    // 우울증 등으로 약을 꾸준히 챙겨야 하는데, 가족과 멀리 떨어져 있어
+    // (제주라는 지역 특성상) 직접 확인해줄 수 없는 상황을 위한 기능.
+    // 사진을 "실제로 찍는" 행동 자체가 인증이 되고, 원할 때만 가족에게
+    // 공유할 수 있도록 해서 감시가 아닌 안심의 도구가 되도록 설계함.
+    // ===================================================================
+    const MED_STATE_KEY = "jeroki-med-state";
+    const MED_PHOTO_RETENTION_DAYS = 14; // 최근 N일치 사진만 보관 (기기 저장공간 절약)
+    const MED_CALENDAR_DAYS = 28;
+
+    let medLog = {};        // { "2026-08-10": { time: "14:32", photo: "data:..." (최근 N일만) } }
+    let medRefPhoto = null; // 등록해둔 "내 약" 사진 (data URL)
+    let medCameraStream = null;
+    let medCameraMode = null; // 'ref' | 'checkin'
+
+    function medDateKeyOffset(offsetDays) {
+        const d = new Date();
+        d.setDate(d.getDate() + offsetDays);
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return y + "-" + m + "-" + day;
+    }
+    function medTodayKey() { return medDateKeyOffset(0); }
+
+    async function loadMedState() {
+        try {
+            const result = await window.storage.get(MED_STATE_KEY);
+            if (result && result.value) {
+                const state = JSON.parse(result.value);
+                medLog = state.medLog || {};
+                medRefPhoto = state.medRefPhoto || null;
+            }
+        } catch (e) {}
+    }
+
+    async function saveMedState() {
+        try {
+            await window.storage.set(MED_STATE_KEY, JSON.stringify({ medLog, medRefPhoto }));
+        } catch (e) {}
+    }
+
+    // 오래된 날짜의 사진 데이터는 지우고 "챙겼다"는 기록만 남겨 저장 용량을 관리
+    function trimMedPhotos() {
+        const cutoff = medDateKeyOffset(-MED_PHOTO_RETENTION_DAYS);
+        Object.keys(medLog).forEach(key => {
+            if (key < cutoff && medLog[key] && medLog[key].photo) {
+                delete medLog[key].photo;
+            }
+        });
+    }
+
+    function computeMedStreak() {
+        let streak = 0;
+        let cursor = medLog[medTodayKey()] ? 0 : -1; // 오늘 아직이면 어제부터 셈
+        while (medLog[medDateKeyOffset(cursor)]) {
+            streak++;
+            cursor--;
+        }
+        return streak;
+    }
+
+    function showMedication() {
+        document.getElementById('main-view').style.display = 'none';
+        const gameView = document.getElementById('game-view');
+        if (gameView) gameView.style.display = 'none';
+        document.getElementById('medication-view').style.display = 'flex';
+        window.scrollTo(0, 0);
+        renderMedication();
+    }
+
+    function closeMedication() {
+        stopMedCameraStream();
+        document.getElementById('med-camera-view').style.display = 'none';
+        document.getElementById('med-result-view').style.display = 'none';
+        document.getElementById('medication-view').style.display = 'none';
+        document.getElementById('main-view').style.display = 'flex';
+        window.scrollTo(0, 0);
+    }
+
+    function renderMedication() {
+        const todayEntry = medLog[medTodayKey()];
+        const statusCard = document.getElementById('med-status-card');
+        const thumb = document.getElementById('med-status-thumb');
+        const headline = document.getElementById('med-status-headline');
+        const sub = document.getElementById('med-status-sub');
+        const primaryBtn = document.getElementById('med-primary-btn');
+
+        if (todayEntry) {
+            statusCard.classList.add('done');
+            thumb.innerHTML = todayEntry.photo ? '<img src="' + todayEntry.photo + '" alt="">' : '✅';
+            headline.innerText = "오늘도 잘 챙겼어요!";
+            sub.innerText = todayEntry.time + "에 인증했어요";
+            primaryBtn.classList.add('done');
+            primaryBtn.innerText = "🔄 사진 다시 찍기";
+        } else {
+            statusCard.classList.remove('done');
+            thumb.innerHTML = '💊';
+            headline.innerText = "아직이에요";
+            sub.innerText = "지금 챙겨볼까요?";
+            primaryBtn.classList.remove('done');
+            primaryBtn.innerText = "📸 오늘 약 먹은 사진 찍기";
+        }
+
+        const streak = computeMedStreak();
+        const badge = document.getElementById('med-streak-badge');
+        if (streak > 0) {
+            badge.classList.remove('zero');
+            badge.innerText = "🔥 " + streak + "일째 챙기고 있어요";
+        } else {
+            badge.classList.add('zero');
+            badge.innerText = "오늘부터 시작해봐요 🌱";
+        }
+
+        renderMedCalendar();
+
+        const refThumb = document.getElementById('med-ref-thumb');
+        const refSub = document.getElementById('med-ref-sub');
+        if (medRefPhoto) {
+            refThumb.innerHTML = '<img src="' + medRefPhoto + '" alt="">';
+            refSub.innerText = "등록된 사진과 비슷한 구도로 찍을 수 있어요";
+        } else {
+            refThumb.innerHTML = '🖼️';
+            refSub.innerText = "등록해두면 매번 비슷한 구도로 찍을 수 있어요";
+        }
+    }
+
+    function renderMedCalendar() {
+        const cal = document.getElementById('med-calendar');
+        if (!cal) return;
+        let html = "";
+        for (let offset = -(MED_CALENDAR_DAYS - 1); offset <= 0; offset++) {
+            const key = medDateKeyOffset(offset);
+            const checked = !!medLog[key];
+            const isToday = offset === 0;
+            const d = new Date();
+            d.setDate(d.getDate() + offset);
+            let cls = "med-day";
+            if (checked) cls += " checked";
+            if (isToday) cls += " today";
+            html += '<span class="' + cls + '">' + d.getDate() + '</span>';
+        }
+        cal.innerHTML = html;
+    }
+
+    // ===== 촬영 (등록용 / 체크인용 공용) =====
+    function startMedRefPhoto() { openMedCamera('ref'); }
+    function startMedCheckin() { openMedCamera('checkin'); }
+
+    async function openMedCamera(mode) {
+        medCameraMode = mode;
+        const title = document.getElementById('med-camera-title');
+        const hint = document.getElementById('med-camera-hint');
+        const ghost = document.getElementById('med-camera-ghost');
+        title.innerText = mode === 'ref' ? "내 약 사진 등록하기" : "오늘 약 먹은 사진 찍기";
+
+        if (mode === 'checkin' && medRefPhoto) {
+            ghost.src = medRefPhoto;
+            ghost.style.display = 'block';
+            hint.innerText = "희미하게 보이는 사진과 비슷한 구도로 찍어보세요";
+        } else {
+            ghost.style.display = 'none';
+            hint.innerText = mode === 'ref' ? "평소 약을 보관하는 모습을 찍어주세요" : "오늘 챙긴 약의 모습을 찍어주세요";
+        }
+
+        try {
+            medCameraStream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "environment" }, audio: false
+            });
+            const video = document.getElementById('med-camera-video');
+            video.srcObject = medCameraStream;
+            document.getElementById('med-camera-view').style.display = 'flex';
+        } catch (e) {
+            // 카메라 권한이 없거나 지원하지 않는 브라우저면 기본 카메라 앱으로 대체
+            openMedCameraFallback(mode);
+        }
+    }
+
+    function stopMedCameraStream() {
+        if (medCameraStream) {
+            medCameraStream.getTracks().forEach(t => t.stop());
+            medCameraStream = null;
+        }
+    }
+
+    function cancelMedCamera() {
+        stopMedCameraStream();
+        document.getElementById('med-camera-view').style.display = 'none';
+    }
+
+    function captureMedPhoto() {
+        const video = document.getElementById('med-camera-video');
+        const canvas = document.getElementById('med-canvas');
+        const w = video.videoWidth || 480;
+        const h = video.videoHeight || 640;
+        const targetW = 480;
+        const targetH = Math.round(h * (targetW / w));
+        canvas.width = targetW;
+        canvas.height = targetH;
+        canvas.getContext('2d').drawImage(video, 0, 0, targetW, targetH);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+        stopMedCameraStream();
+        document.getElementById('med-camera-view').style.display = 'none';
+        handleCapturedPhoto(medCameraMode, dataUrl);
+    }
+
+    // getUserMedia를 쓸 수 없는 환경(권한 거부, 미지원 브라우저 등)의 대체 경로
+    function openMedCameraFallback(mode) {
+        medCameraMode = mode;
+        const input = document.getElementById('med-file-input');
+        input.value = "";
+        input.onchange = (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                resizeImageDataUrl(reader.result, 480, 0.7, (resized) => {
+                    handleCapturedPhoto(mode, resized);
+                });
+            };
+            reader.readAsDataURL(file);
+        };
+        input.click();
+    }
+
+    function resizeImageDataUrl(sourceDataUrl, maxWidth, quality, cb) {
+        const img = new Image();
+        img.onload = () => {
+            const scale = Math.min(1, maxWidth / img.width);
+            const canvas = document.getElementById('med-canvas');
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+            cb(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.src = sourceDataUrl;
+    }
+
+    async function handleCapturedPhoto(mode, dataUrl) {
+        if (mode === 'ref') {
+            medRefPhoto = dataUrl;
+            await saveMedState();
+            renderMedication();
+            return;
+        }
+        const now = new Date();
+        const time = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+        medLog[medTodayKey()] = { time, photo: dataUrl };
+        trimMedPhotos();
+        await saveMedState();
+        renderMedication();
+        showMedResult(dataUrl);
+    }
+
+    function showMedResult(dataUrl) {
+        document.getElementById('med-result-img').src = dataUrl;
+        document.getElementById('med-download-link').style.display = 'none';
+        const streak = computeMedStreak();
+        document.getElementById('med-result-msg').innerText =
+            streak > 1 ? ("🔥 " + streak + "일 연속으로 챙겼어요! 정말 잘하고 있어요") : "오늘도 잘 챙겼어요! 😊";
+        document.getElementById('med-result-view').style.display = 'flex';
+    }
+
+    function closeMedResult() {
+        document.getElementById('med-result-view').style.display = 'none';
+    }
+
+    async function shareMedPhoto() {
+        const img = document.getElementById('med-result-img');
+        try {
+            const res = await fetch(img.src);
+            const blob = await res.blob();
+            const file = new File([blob], 'med-checkin.jpg', { type: 'image/jpeg' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    files: [file],
+                    title: '약 챙겨 먹었어요',
+                    text: '오늘도 약 잘 챙겨 먹었어요 💊'
+                });
+                return;
+            }
+            if (navigator.share) {
+                await navigator.share({ title: '약 챙겨 먹었어요', text: '오늘도 약 잘 챙겨 먹었어요 💊' });
+                return;
+            }
+        } catch (e) {
+            // 공유 도중 취소한 경우 등은 조용히 무시
+        }
+        // 공유 API를 지원하지 않는 환경: 직접 저장해서 보낼 수 있도록 다운로드 링크 노출
+        const link = document.getElementById('med-download-link');
+        link.href = img.src;
+        link.style.display = 'block';
+    }
+
+    loadMedState();
 </script>
 
 </body>
