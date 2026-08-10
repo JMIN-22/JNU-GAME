@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>제주대학교 생명존중 학생지원포털</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +35,12 @@
             margin: 0;
             padding: 0;
             font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html {
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
         body {
             background-color: #e9e4d8;
@@ -42,12 +48,23 @@
             line-height: 1.5;
             display: flex;
             justify-content: center;
+            overscroll-behavior-y: none;
+        }
+        /* 연타형 미니게임 요소에서 길게 눌렀을 때 뜨는 선택/복사 팝업 방지 */
+        button, .action-btn, .farm-plot, .crop-select-btn, .scene-btn, .game-tab-btn,
+        #chick, #walk-char, #walk-boundary, #mine-cave, #mine-vein, #fish-cast-btn,
+        #fish-bobber, .play-cell, .field-card, .shop-row, .collection-cell {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
         .app-container {
             width: 100%;
-            max-width: 480px; 
+            max-width: 480px;
             background-color: var(--cream);
             min-height: 100vh;
+            min-height: 100dvh;
+            padding-bottom: env(safe-area-inset-bottom);
             display: flex;
             flex-direction: column;
             position: relative;
@@ -428,7 +445,6 @@
             box-shadow: 0 2px 5px rgba(150, 96, 45, 0.08);
             transition: transform 0.12s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
-        .collection-btn:hover { border-color: #ffcf95; box-shadow: 0 4px 10px rgba(150, 96, 45, 0.14); }
         .collection-btn:active { transform: scale(0.94); }
         .mission-btn-wrap { position: relative; }
         .mission-badge {
@@ -723,7 +739,6 @@
             border: none;
             transition: background 0.2s ease, transform 0.12s ease;
         }
-        .btn-back:hover { background: #efe9dd; }
         .btn-back:active { transform: scale(0.96); }
         .float-xp {
             position: absolute;
@@ -1067,7 +1082,6 @@
             cursor: pointer;
             transition: background 0.2s ease, transform 0.12s ease;
         }
-        .land-buy-btn:hover { background: #fff7e8; }
         .land-buy-btn:active { transform: scale(0.98); }
         .land-buy-btn:disabled {
             border-color: #eee7db;
@@ -1534,7 +1548,6 @@
             margin-bottom: 9px;
             transition: box-shadow 0.2s ease;
         }
-        .shop-row:hover { box-shadow: 0 4px 12px rgba(150, 96, 45, 0.08); }
         .shop-info { font-size: 0.82rem; font-weight: bold; color: #5a4632; }
         .shop-sub { font-size: 0.7rem; color: #a2977f; margin-top: 3px; }
         .shop-btn {
@@ -1674,7 +1687,6 @@
             cursor: pointer;
             transition: background 0.2s ease, transform 0.12s ease;
         }
-        .walk-end-btn:hover { background: #efe9dd; }
         .walk-end-btn:active { transform: scale(0.98); }
 
         /* 이벤트 토스트 알림 */
@@ -1858,7 +1870,6 @@
             text-align: center;
             transition: transform 0.15s ease;
         }
-        .collection-cell:not(.locked):hover { transform: translateY(-2px); }
         .collection-cell.locked {
             background: #f7f4ee;
             border-color: #eee7db;
@@ -1887,7 +1898,6 @@
             cursor: pointer;
             transition: background 0.2s ease, transform 0.12s ease;
         }
-        .collection-close:hover { background: #efe9dd; }
         .collection-close:active { transform: scale(0.98); }
 
         .mission-row {
@@ -1964,6 +1974,23 @@
         .mission-claim-btn.done { background: #dfeee6; color: #2f7a57; }
         .mission-claim-btn:disabled { opacity: 0.4; cursor: not-allowed; background: #ddd; color: #888; }
         .mission-claim-btn.done { background: #cfe8d8; color: #2e7d4f; opacity: 1; }
+
+        /* 마우스가 있는 기기에서만 hover 효과 적용 (터치 기기는 탭 후에도 눌린 상태로 남는 걸 방지) */
+        @media (hover: hover) and (pointer: fine) {
+            .collection-btn:hover { border-color: #ffcf95; box-shadow: 0 4px 10px rgba(150, 96, 45, 0.14); }
+            .btn-back:hover { background: #efe9dd; }
+            .land-buy-btn:hover { background: #fff7e8; }
+            .shop-row:hover { box-shadow: 0 4px 12px rgba(150, 96, 45, 0.08); }
+            .walk-end-btn:hover { background: #efe9dd; }
+            .collection-cell:not(.locked):hover { transform: translateY(-2px); }
+            .collection-close:hover { background: #efe9dd; }
+        }
+
+        /* 작은 화면 폭에서 탭 글자가 너무 작아지지 않도록 살짝 키움 */
+        @media (max-width: 400px) {
+            .game-tab-btn { font-size: 0.66rem; }
+            .game-tab-btn .tab-ico { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
